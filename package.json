@@ -1,0 +1,17 @@
+{
+  "name": "terminal-help",
+  "version": "1.0.0",
+  "description": "Create help menu for your next terminal app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "amanvirk",
+  "license": "MIT",
+  "dependencies": {
+    "colors": "^1.1.2"
+  },
+  "devDependencies": {
+    "yargs": "^3.31.0"
+  }
+}
