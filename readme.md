@@ -11,7 +11,7 @@ General purpose package to create a pretty help screen for your commands using a
 ## Basic Usage
 
 ```javascript
-const Help = require('terminal-menu')
+const Help = require('terminal-help')
 const packageFile = require('./package.json')
 const options = {
   package: packageFile,
