@@ -39,35 +39,34 @@ const options = {
   ]
 }
 
-if(argv.help) {
-  if(argv._[0]) {
+if (argv.help) {
+  if (argv._[0]) {
     const commandOptions = options.commands.filter(function (command) {
       return command.name === argv._[0]
     })
-    if(commandOptions[0]) {
+    if (commandOptions[0]) {
       return Help.commandMenu(commandOptions[0])
     }
   }
-  else if(typeof(argv.help) === 'string') {
+  else if (typeof (argv.help) === 'string') {
     const commandOptions = options.commands.filter(function (command) {
       return command.name === argv.help
     })
-    if(commandOptions[0]) {
+    if (commandOptions[0]) {
       return Help.commandMenu(commandOptions[0])
     }
   }
   Help.menu(options)
-}
-else {
+} else {
   const commands = options.commands.map(function (command) {
     return command.name
   })
   const command = argv._.filter(function (item) {
     return commands.indexOf(item) != -1
   })
-  if(command && command.length) {
+  if (command && command.length) {
     console.log(`You ran ${command} command`)
-  }else{
+  } else {
     console.log(`${argv._[0]} is not a valid command`)
   }
 }
