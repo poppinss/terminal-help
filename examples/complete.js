@@ -45,15 +45,14 @@ if (argv.help) {
       return command.name === argv._[0]
     })
     if (commandOptions[0]) {
-      return Help.commandMenu(commandOptions[0])
+      Help.commandMenu(commandOptions[0])
     }
-  }
-  else if (typeof (argv.help) === 'string') {
+  } else if (typeof (argv.help) === 'string') {
     const commandOptions = options.commands.filter(function (command) {
       return command.name === argv.help
     })
     if (commandOptions[0]) {
-      return Help.commandMenu(commandOptions[0])
+      Help.commandMenu(commandOptions[0])
     }
   }
   Help.menu(options)
@@ -62,7 +61,7 @@ if (argv.help) {
     return command.name
   })
   const command = argv._.filter(function (item) {
-    return commands.indexOf(item) != -1
+    return commands.indexOf(item) !== -1
   })
   if (command && command.length) {
     console.log(`You ran ${command} command`)

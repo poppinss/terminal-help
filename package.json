@@ -4,7 +4,7 @@
   "description": "Create help menu for your next terminal app",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "standard src/**/*.js examples/*.js index.js"
   },
   "author": "amanvirk",
   "license": "MIT",
@@ -12,6 +12,7 @@
     "colors": "^1.1.2"
   },
   "devDependencies": {
+    "standard": "^5.4.1",
     "yargs": "^3.31.0"
   },
   "directories": {

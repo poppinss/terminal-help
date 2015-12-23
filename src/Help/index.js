@@ -37,7 +37,7 @@ const _maxLength = function (options, key) {
  * @private
  */
 const _makeSpaces = function (keyword, maxLength, pad) {
-  pad =  maxLength > 0 ? (pad || 4) : 0
+  pad = maxLength > 0 ? (pad || 4) : 0
   return new Array((maxLength - keyword.length) + pad).join(' ')
 }
 
@@ -114,16 +114,16 @@ const _makeCommands = function (commands) {
 
   commands.forEach(function (command) {
     const namespaces = command.name.split(':')
-    if(namespaces.length > 1) {
+    if (namespaces.length > 1) {
       groupedCommands[namespaces[0]] = groupedCommands[namespaces[0]] || []
       groupedCommands[namespaces[0]].push(command)
-    }else{
+    } else {
       groupedCommands['/'] = groupedCommands['/'] || []
       groupedCommands['/'].push(command)
     }
   })
 
-  if(groupedCommands['/']) {
+  if (groupedCommands['/']) {
     commandsString += _makeOptions(groupedCommands['/'])
     delete groupedCommands['/']
   }
@@ -147,18 +147,18 @@ Help.menu = function (options) {
   let menuString = ''
 
   // prints package information if passed
-  if(options.package) {
+  if (options.package) {
     menuString += _makePacakge(options.package)
   }
 
   // list down all global options is passed
-  if(options.options && options.options.length) {
+  if (options.options && options.options.length) {
     menuString += _makeTitle('Options')
     menuString += _makeOptions(options.options)
   }
 
   // list down all global commands is passed
-  if(options.commands && options.commands.length) {
+  if (options.commands && options.commands.length) {
     menuString += _makeTitle('Available Commands')
     menuString += _makeCommands(options.commands)
   }
@@ -175,13 +175,13 @@ Help.menu = function (options) {
  */
 Help.commandMenu = function (command) {
   let commandString = `${colors.yellow('Usage')}\n${command.name} [arguments] [options]`
-  if(command.arguments && command.arguments.length) {
+  if (command.arguments && command.arguments.length) {
     commandString += _makeTitle('Arguments')
     commandString += _makeOptions(command.arguments)
-    commandString += "\n"
+    commandString += '\n'
   }
 
-  if(command.options && command.options.length) {
+  if (command.options && command.options.length) {
     commandString += _makeTitle('Options')
     commandString += _makeOptions(command.options)
   }
