@@ -13,13 +13,46 @@ const options = {
   commands: [
     {
       name: 'make:controller',
-      description: 'Make a new controller file using it\'s name'
+      description: 'Make a new controller file using it\'s name',
+      options: [
+        {
+          name: '--plain',
+          description: 'Keep controllers plain',
+          abbrv: '-p'
+        },
+        {
+          name: '--create',
+          description: 'Keep us plain'
+        }
+      ],
+      arguments: [
+        {
+          name: 'name',
+          description: 'Name of the controller'
+        },
+        {
+          name: 'location',
+          description: 'Location where to create controller'
+        },
+      ]
     },
     {
       name: 'make:model',
       description: 'Make a new model file using it\'s name'
+    },
+    {
+      name: 'migration:make',
+      description: 'Create a new migration file'
+    },
+    {
+      name: 'push',
+      description: 'push values to github'
+    },
+    {
+      name: 'pull',
+      description: 'pull values from github'
     }
   ]
 }
 
-Help.menu(options)
+Help.commandMenu(options.commands[0])

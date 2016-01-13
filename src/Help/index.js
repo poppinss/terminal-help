@@ -50,19 +50,7 @@ const _makeSpaces = function (keyword, maxLength, pad) {
  * @private
  */
 const _makeTitle = function (title) {
-  return `\n\n${colors.yellow(title)}\n`
-}
-
-/**
- * @description makes a small title in yellow with required margin
- * on top and bottom
- * @method makeSmallTitle
- * @param  {String}       title
- * @return {String}
- * @private
- */
-const _makeSmallTitle = function (title) {
-  return `\n${colors.yellow(title)}\n`
+  return `${colors.yellow(title)}`
 }
 
 /**
@@ -88,13 +76,19 @@ const _makePacakge = function (values) {
 const _makeOptions = function (options, pad) {
   pad = pad || ''
   let optionsString = ''
+  let linebreak = "\n"
+  let x = 0
   const nameLength = _maxLength(options, 'name')
   const abbrvLength = _maxLength(options, 'abbrv')
 
   options.forEach(function (item) {
+    x++
+    if(x === options.length) {
+      linebreak = ''
+    }
     optionsString += item.abbrv ? `${colors.green(item.abbrv)}${_makeSpaces(item.abbrv, abbrvLength, 3)}` : `${_makeSpaces('', abbrvLength, 3)}`
     optionsString += `${pad}${colors.green(item.name)}`
-    optionsString += item.description ? `${_makeSpaces(item.name, nameLength)} ${item.description}\n` : ''
+    optionsString += item.description ? `${_makeSpaces(item.name, nameLength)} ${item.description}${linebreak}` : linebreak
   })
 
   return optionsString
@@ -111,6 +105,8 @@ const _makeOptions = function (options, pad) {
 const _makeCommands = function (commands) {
   let groupedCommands = {}
   let commandsString = ''
+  let linebreak = "\n"
+  let x = 0
 
   commands.forEach(function (command) {
     const namespaces = command.name.split(':')
@@ -124,13 +120,19 @@ const _makeCommands = function (commands) {
   })
 
   if (groupedCommands['/']) {
-    commandsString += _makeOptions(groupedCommands['/'])
+    commandsString += `${_makeOptions(groupedCommands['/'])}\n\n`
     delete groupedCommands['/']
   }
 
-  Object.keys(groupedCommands).forEach(function (name) {
-    commandsString += _makeSmallTitle(name)
-    commandsString += _makeOptions(groupedCommands[name], ' ')
+  const groupedCommandsKeys = Object.keys(groupedCommands)
+
+  groupedCommandsKeys.forEach(function (name) {
+    x++
+    if(x === groupedCommandsKeys.length) {
+      linebreak = ''
+    }
+    commandsString += `${_makeTitle(name)}\n`
+    commandsString += `${_makeOptions(groupedCommands[name], ' ')}\n${linebreak}`
   })
   return commandsString
 }
@@ -148,18 +150,18 @@ Help.menu = function (options) {
 
   // prints package information if passed
   if (options.package) {
-    menuString += _makePacakge(options.package)
+    menuString += `\n${_makePacakge(options.package)}`
   }
 
   // list down all global options is passed
   if (options.options && options.options.length) {
-    menuString += _makeTitle('Options')
+    menuString += `\n\n${_makeTitle('Options')}\n`
     menuString += _makeOptions(options.options)
   }
 
   // list down all global commands is passed
   if (options.commands && options.commands.length) {
-    menuString += _makeTitle('Available Commands')
+    menuString += `\n\n${_makeTitle('Available Commands')}\n`
     menuString += _makeCommands(options.commands)
   }
   console.log(menuString)
@@ -174,19 +176,18 @@ Help.menu = function (options) {
  * @public
  */
 Help.commandMenu = function (command) {
-  let commandString = `${colors.yellow('Usage')}\n${command.name} [arguments] [options]`
+  let commandString = `\n${colors.yellow('Usage')}\n${command.name} [arguments] [options]`
   if (command.arguments && command.arguments.length) {
-    commandString += _makeTitle('Arguments')
+    commandString += `\n\n${_makeTitle('Arguments')}\n`
     commandString += _makeOptions(command.arguments)
-    commandString += '\n'
   }
 
   if (command.options && command.options.length) {
-    commandString += _makeTitle('Options')
+    commandString += `\n\n${_makeTitle('Options')}\n`
     commandString += _makeOptions(command.options)
   }
 
-  commandString += _makeTitle('Help')
-  commandString += command.description
+  commandString += `\n\n${_makeTitle('Help')}\n`
+  commandString += `${command.description}\n`
   console.log(commandString)
 }
