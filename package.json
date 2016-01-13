@@ -1,6 +1,6 @@
 {
   "name": "terminal-help",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Create help menu for your next terminal app",
   "main": "index.js",
   "scripts": {
