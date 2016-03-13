@@ -1,9 +1,12 @@
 'use strict'
 
 /**
- * terminal-menu
- * Copyright(c) 2015-2015 Harminder Virk
- * MIT Licensed
+ * terminal-help
+ *
+ * (c) Harminder Virk <virk@adonisjs.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
 */
 
 const Help = require('../index')
@@ -18,11 +21,12 @@ const options = {
         {
           name: '--plain',
           description: 'Keep controllers plain',
-          abbrv: '-p'
+          alias: '-p|pp'
         },
         {
           name: '--create',
-          description: 'Keep us plain'
+          alias: '-c',
+          description: 'Whether or not to create the file'
         }
       ],
       arguments: [
@@ -33,7 +37,7 @@ const options = {
         {
           name: 'location',
           description: 'Location where to create controller'
-        },
+        }
       ]
     },
     {
@@ -55,4 +59,4 @@ const options = {
   ]
 }
 
-Help.commandMenu(options.commands[0])
+Help.forCommand('make:controller', options)

@@ -1,9 +1,12 @@
 'use strict'
 
 /**
- * terminal-menu
- * Copyright(c) 2015-2015 Harminder Virk
- * MIT Licensed
+ * terminal-help
+ *
+ * (c) Harminder Virk <virk@adonisjs.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
 */
 
 const Help = require('../index')
@@ -13,7 +16,9 @@ const options = {
   package: packageFile,
   options: [
     {
-      name: '--help'
+      name: '--help',
+      alias: '-h',
+      description: 'Show help'
     }
   ],
   commands: [
@@ -24,38 +29,50 @@ const options = {
         {
           name: '--peppers',
           description: 'Define peppers quantity',
-          abbrv: '-p'
+          alias: '-p'
         },
         {
           name: '--cheese',
-          abbrv: '-c'
+          alias: '-c'
         }
       ]
     },
     {
       name: 'cake',
       description: 'Get yourself free cake'
+    },
+    {
+      name: 'migration:run',
+      description: 'Run all pending migrations',
+      options: [
+        {
+          name: '--force',
+          alias: '-f',
+          description: 'Force migrations in production'
+        }
+      ],
+      arguments: [
+        {
+          name: 'batch',
+          description: 'Batch of migrations to run'
+        }
+      ]
+    },
+    {
+      name: 'migration:rollback',
+      description: 'Rollback set of migrations'
     }
   ]
 }
 
 if (argv.help) {
   if (argv._[0]) {
-    const commandOptions = options.commands.filter(function (command) {
-      return command.name === argv._[0]
-    })
-    if (commandOptions[0]) {
-      Help.commandMenu(commandOptions[0])
-    }
+    Help.forCommand(argv._[0], options)
   } else if (typeof (argv.help) === 'string') {
-    const commandOptions = options.commands.filter(function (command) {
-      return command.name === argv.help
-    })
-    if (commandOptions[0]) {
-      Help.commandMenu(commandOptions[0])
-    }
+    Help.forCommand(argv.help, options)
+  } else {
+    Help.menu(options)
   }
-  Help.menu(options)
 } else {
   const commands = options.commands.map(function (command) {
     return command.name
